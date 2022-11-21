@@ -1,3 +1,4 @@
+import {CategoryStackParams} from '../screens/categories';
 import {HometackParams} from '../screens/home';
 
 export type AuthorsStackParams = {
@@ -7,15 +8,8 @@ export type AuthorsStackParams = {
   };
 };
 
-export type CategoriestackParams = {
-  categories: undefined;
-  category: {
-    id: string;
-  };
-};
-
 export type RootTabParams = {
   homeStack: HometackParams;
-  categoriesStack: CategoriestackParams;
+  categoriesStack: CategoryStackParams;
   authorsStack: AuthorsStackParams;
 };
