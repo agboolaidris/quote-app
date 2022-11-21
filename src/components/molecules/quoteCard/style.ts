@@ -5,7 +5,7 @@ import {css} from '@emotion/react';
 interface QuoteWrapperProps {
   // color?: ColorType;
 }
-export const QuoteWrapper = styled.Pressable<QuoteWrapperProps>`
+export const QuoteWrapper = styled.View<QuoteWrapperProps>`
   background-color: ${({theme}) => theme.colors['dominant']};
   padding: 20px;
   margin-top: 10px;

@@ -1,3 +1,5 @@
+import {HometackParams} from '../screens/home';
+
 export type AuthorsStackParams = {
   authories: undefined;
   author: {
@@ -13,7 +15,7 @@ export type CategoriestackParams = {
 };
 
 export type RootTabParams = {
-  home: undefined;
+  homeStack: HometackParams;
   categoriesStack: CategoriestackParams;
   authorsStack: AuthorsStackParams;
 };
