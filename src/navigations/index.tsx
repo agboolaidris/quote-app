@@ -8,49 +8,22 @@ import CustomTabButtom from './components/tabBar';
 import HomeIcon from '../icons/home';
 import {theme} from '../assets/theme';
 import {butomTabData} from '../contants/nav';
-
-function HomeScreen() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
+import HomeScreen from '../screens/home';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator<RootTabParams>();
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{tabBarStyle: {paddingTop: 10}}}>
-        {/* <Tab.Screen
-          name="home"
-          component={HomeScreen}
-          options={{
-            tabBarButton: props => (
-              <CustomTabButtom
-                {...props}
-                icon={
-                  <HomeIcon
-                    width={30}
-                    height={30}
-                    color={
-                      props.accessibilityState?.selected
-                        ? theme.colors.dominant50
-                        : theme.colors.compliment
-                    }
-                  />
-                }
-                label="Home"
-              />
-            ),
-          }}
-        /> */}
+      <Tab.Navigator
+        screenOptions={{tabBarStyle: {paddingTop: 10}, headerShown: false}}>
         {butomTabData.map(tab => (
           <Tab.Screen
+            key={tab.route}
             name={tab.route}
-            component={HomeScreen}
+            component={tab.screen}
             options={{
+              headerTitle: tab.label,
               tabBarButton: props => (
                 <CustomTabButtom
                   {...props}
