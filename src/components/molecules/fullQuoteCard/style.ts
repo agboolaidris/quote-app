@@ -21,4 +21,6 @@ export const IconWrapper = styled.Pressable`
 export const ButtonWrapper = styled.Pressable`
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  min-height: 200px;
 `;
