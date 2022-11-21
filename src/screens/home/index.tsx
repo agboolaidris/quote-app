@@ -1,7 +1,4 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import {Container} from '../../components/atoms/container';
-import QuoteCard from '../../components/molecules/quoteCard';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './screen';
 import Home_IDScreen from './_id/screen';

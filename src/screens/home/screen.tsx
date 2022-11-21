@@ -1,9 +1,9 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 import {Container} from '../../components/atoms/container';
 import QuoteCard from '../../components/molecules/quoteCard';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {HometackParams} from '.';
+
 type Props = NativeStackScreenProps<HometackParams>;
 const HomeScreen = ({navigation}: Props) => {
   const handleQuotePress = (id: string) => {
