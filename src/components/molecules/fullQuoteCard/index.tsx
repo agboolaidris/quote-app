@@ -12,6 +12,7 @@ import {Text} from '../../atoms/text';
 import {useNavigation} from '@react-navigation/native';
 import QuoteIcon from '../../../icons/quote';
 import Button from '../../atoms/button';
+import ShareIcon from '../../../icons/share';
 
 const FullQuoteCard = () => {
   const navigation = useNavigation();
@@ -56,7 +57,30 @@ const FullQuoteCard = () => {
         </Text>
       </View>
       <ButtonWrapper>
-        <Button />
+        <Button
+          style={{width: '100%', paddingHorizontal: 30}}
+          content="Share as image"
+          icon={
+            <ShareIcon
+              width={20}
+              height={20}
+              color={theme.colors.dominant50}
+              style={{marginLeft: 5}}
+            />
+          }
+        />
+        <Button
+          style={{width: '100%', paddingHorizontal: 30, marginTop: 20}}
+          content="Share as text"
+          icon={
+            <ShareIcon
+              width={20}
+              height={20}
+              color={theme.colors.dominant50}
+              style={{marginLeft: 5}}
+            />
+          }
+        />
       </ButtonWrapper>
     </FullQuoteWrapper>
   );
