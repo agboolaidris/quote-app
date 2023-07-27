@@ -24,7 +24,7 @@ export default function HomeScreen() {
           unde rerum quod?
         </Text>
         <Link href="/about">
-          <Text style={styles.title}>JJJJ</Text>
+          <Text style={styles.title}>Modal</Text>
         </Link>
       </SafeAreaView>
       {/* Use a light status bar on iOS to account for the black space above the modal */}
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+
     paddingTop: Platform.OS === "android" ? RStatusBar.currentHeight : 0,
   },
   title: {
