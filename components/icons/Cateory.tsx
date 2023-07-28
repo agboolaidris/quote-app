@@ -4,8 +4,8 @@ import Svg, { Path, SvgProps } from "react-native-svg";
 export const CategoryIcon = (props: SvgProps) => {
   return (
     <Svg
-      stroke="currentColor"
       fill="currentColor"
+      stroke="currentColor"
       strokeWidth={0}
       viewBox="0 0 24 24"
       height="1em"

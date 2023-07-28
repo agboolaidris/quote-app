@@ -3,28 +3,52 @@ import { View, TouchableOpacity } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { BookMarkIcon } from "@/components/icons/BookMark";
 import { CategoryIcon } from "@/components/icons/Cateory";
+import { COLORS } from "@/constants";
+import { HomeIcon } from "@/components/icons/Home";
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "home",
 };
 
+type TabProps = { focused: boolean; size: number };
+
 const tabs = [
   {
-    name: "saves",
-    icon: BookMarkIcon,
-    label: "Save",
+    name: "authors/index",
+    icon: ({ focused, size }: TabProps) => (
+      <HomeIcon
+        height={size}
+        width={size}
+        stroke={focused ? "none" : COLORS.gray[500]}
+        fill={focused ? COLORS.gray[50] : "none"}
+      />
+    ),
+    label: "Authors",
   },
 
   {
     name: "(categories)/index",
-    icon: CategoryIcon,
+    icon: ({ focused, size }: TabProps) => (
+      <CategoryIcon
+        height={size}
+        width={size}
+        fill={focused ? COLORS.gray[50] : COLORS.gray[500]}
+      />
+    ),
     label: "Category",
   },
 
   {
-    name: "authors/index",
-    icon: CategoryIcon,
-    label: "Authors",
+    name: "saves",
+    icon: ({ focused, size }: TabProps) => (
+      <BookMarkIcon
+        height={size}
+        width={size}
+        stroke={focused ? COLORS.gray[50] : COLORS.gray[500]}
+        fill={focused ? COLORS.gray[50] : "none"}
+      />
+    ),
+    label: "Save",
   },
 ];
 
@@ -41,7 +65,7 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
       <View
         style={{
           flexDirection: "row",
-          backgroundColor: "yellow",
+          backgroundColor: COLORS.gray[800],
           padding: 10,
           borderRadius: 20,
         }}
@@ -85,7 +109,7 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
               onLongPress={onLongPress}
               style={{ flex: 1, alignItems: "center" }}
             >
-              {Icon && <Icon size={10} focused={isFocused} color="" />}
+              {Icon && <Icon size={30} focused={isFocused} color="" />}
             </TouchableOpacity>
           );
         })}
@@ -104,8 +128,8 @@ export default function TabLayout() {
           options={{
             headerShown: false,
             tabBarLabel: label,
-            tabBarIcon: ({ focused }) => (
-              <Icon height={30} width={30} fill="pink" color="red" />
+            tabBarIcon: ({ focused, size }) => (
+              <Icon focused={focused} size={size} />
             ),
           }}
         />
