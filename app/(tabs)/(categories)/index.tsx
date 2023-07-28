@@ -1,3 +1,4 @@
+import { COLORS } from "@/constants";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -8,12 +9,20 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar as RStatusBar,
+  Pressable,
 } from "react-native";
 
-export default function HomeScreen() {
+export default function CatagoriesScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      <SafeAreaView>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          paddingHorizontal: 10,
+        }}
+      >
         <Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, eaque
           voluptas deleniti cumque harum amet temporibus porro libero explicabo
@@ -23,10 +32,20 @@ export default function HomeScreen() {
           mollitia voluptas explicabo, nulla ipsa suscipit iusto expedita alias
           unde rerum quod?
         </Text>
-        <Link href="/about">
-          <Text style={styles.title}>JJJJ</Text>
+        <Link
+          href="/(tabs)/saves"
+          style={{
+            width: 200,
+            backgroundColor: COLORS.tertiary,
+            padding: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+          }}
+        >
+          <Text>Tab</Text>
         </Link>
-      </SafeAreaView>
+      </View>
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === "ios" ? "dark" : "auto"} />
     </SafeAreaView>
