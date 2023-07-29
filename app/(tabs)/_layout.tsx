@@ -5,6 +5,7 @@ import { BookMarkIcon } from "@/components/icons/BookMark";
 import { CategoryIcon } from "@/components/icons/Cateory";
 import { COLORS } from "@/constants";
 import { HomeIcon } from "@/components/icons/Home";
+
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "home",
@@ -14,7 +15,7 @@ type TabProps = { focused: boolean; size: number };
 
 const tabs = [
   {
-    name: "authors/index",
+    name: "authors",
     icon: ({ focused, size }: TabProps) => (
       <HomeIcon
         height={size}
@@ -56,10 +57,11 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   return (
     <View
       style={{
-        height: 100,
+        //height: 100,
         justifyContent: "center",
-
         paddingHorizontal: 10,
+        paddingBottom: 30,
+        backgroundColor: COLORS.gray[100],
       }}
     >
       <View
