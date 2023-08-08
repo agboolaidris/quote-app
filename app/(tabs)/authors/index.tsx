@@ -234,7 +234,6 @@ export default function AuthorScreen() {
   return (
     <MainWrapper>
       <FlatList
-        ListHeaderComponent={Header}
         numColumns={3}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
