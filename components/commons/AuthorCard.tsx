@@ -1,6 +1,13 @@
-import { View, Text, Image, ImageSourcePropType } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ImageSourcePropType,
+  Pressable,
+} from "react-native";
 import React, { useState } from "react";
-import { COLORS, FONT, SIZES } from "@/constants";
+import { COLORS, SIZES } from "@/constants";
+import { useRouter } from "expo-router";
 
 type AuthorCardProps = {
   _id: string;
@@ -23,40 +30,47 @@ export const AuthorCard = ({ name, slug }: AuthorCardProps) => {
     // Update the image source to fallback URI when the original image fails to load
     setSource(require("@/assets/images/avatar.jpg"));
   };
+  const router = useRouter();
+
+  const onPress = () => {
+    router.push(`/(tabs)/authors/${slug}`);
+  };
 
   return (
-    <View
-      style={{
-        backgroundColor: COLORS.gray[200],
-        padding: 5,
-      }}
-    >
-      <Image
-        source={source}
-        style={{
-          width: "100%",
-          height: 110,
-          resizeMode: "stretch",
-        }}
-        onError={handleImageError}
-      />
-
+    <Pressable onPress={onPress}>
       <View
         style={{
-          marginTop: 10,
+          backgroundColor: COLORS.gray[200],
+          padding: 5,
         }}
       >
-        <Text
+        <Image
+          source={source}
           style={{
-            fontSize: SIZES.sm,
-            textAlign: "center",
-            fontWeight: "bold",
-            color: COLORS.gray[800],
+            width: "100%",
+            height: 110,
+            resizeMode: "stretch",
+          }}
+          onError={handleImageError}
+        />
+
+        <View
+          style={{
+            marginTop: 10,
           }}
         >
-          {name}
-        </Text>
+          <Text
+            style={{
+              fontSize: SIZES.sm,
+              textAlign: "center",
+              fontWeight: "bold",
+              color: COLORS.gray[800],
+            }}
+          >
+            {name}
+          </Text>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };

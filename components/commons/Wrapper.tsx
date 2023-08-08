@@ -10,8 +10,8 @@ export const MainWrapper = ({ children }: MainWrapperProps) => {
   return (
     <SafeAreaView
       style={{
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-        backgroundColor: COLORS.gray[100],
+        // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        backgroundColor: COLORS.gray[50],
       }}
     >
       <View style={{ paddingHorizontal: 10 }}>{children}</View>

@@ -1,10 +1,11 @@
 import { Tabs } from "expo-router";
-import { View, TouchableOpacity } from "react-native";
+import { View, Platform } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { BookMarkIcon } from "@/components/icons/BookMark";
 import { CategoryIcon } from "@/components/icons/Cateory";
 import { COLORS } from "@/constants";
 import { HomeIcon } from "@/components/icons/Home";
+import { AnimatePressable } from "@/components/commons/AnimatePressable";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -57,11 +58,10 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   return (
     <View
       style={{
-        //height: 100,
         justifyContent: "center",
         paddingHorizontal: 10,
-        paddingBottom: 30,
-        backgroundColor: COLORS.gray[100],
+        paddingBottom: Platform.OS === "android" ? 0 : 30,
+        backgroundColor: COLORS.gray[50],
       }}
     >
       <View
@@ -101,7 +101,7 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
           };
 
           return (
-            <TouchableOpacity
+            <AnimatePressable
               key={index}
               accessibilityRole="button"
               accessibilityState={isFocused ? { selected: true } : {}}
@@ -109,10 +109,13 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
               testID={options.tabBarTestID}
               onPress={onPress}
               onLongPress={onLongPress}
-              style={{ flex: 1, alignItems: "center" }}
+              style={{
+                flex: 1,
+                alignItems: "center",
+              }}
             >
               {Icon && <Icon size={30} focused={isFocused} color="" />}
-            </TouchableOpacity>
+            </AnimatePressable>
           );
         })}
       </View>
