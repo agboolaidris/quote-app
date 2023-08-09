@@ -1,5 +1,4 @@
 import { AuthorCard } from "@/components/commons/AuthorCard";
-import { Header } from "@/components/commons/Header";
 import { MainWrapper } from "@/components/commons/Wrapper";
 import { COLORS } from "@/constants";
 import { useLocalSearchParams } from "expo-router";

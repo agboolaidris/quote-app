@@ -1,10 +1,11 @@
 import { AuthorCard } from "@/components/commons/AuthorCard";
-import { Header } from "@/components/commons/Header";
-import { MainWrapper } from "@/components/commons/Wrapper";
-import { COLORS } from "@/constants";
+import { TopTabBar } from "@/components/commons/Header";
 
+import { MainWrapper } from "@/components/commons/Wrapper";
+
+import { TabView, SceneMap } from "react-native-tab-view";
 import React from "react";
-import { Text, View, Dimensions } from "react-native";
+import { View, useWindowDimensions } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 const authors = [
@@ -230,17 +231,39 @@ const authors = [
   },
 ];
 
-export default function AuthorScreen() {
+const AuthorRoute = () => (
+  <MainWrapper>
+    <FlatList
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      data={authors}
+      renderItem={({ item }) => <AuthorCard {...item} />}
+      keyExtractor={(item) => item._id}
+      ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
+    />
+  </MainWrapper>
+);
+
+const renderScene = SceneMap({
+  categories: AuthorRoute,
+  author: AuthorRoute,
+});
+
+export default function TabViewExample() {
+  const layout = useWindowDimensions();
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: "author", title: "Authors" },
+    { key: "categories", title: "Categories" },
+  ]);
+
   return (
-    <MainWrapper>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        data={authors}
-        renderItem={({ item }) => <AuthorCard {...item} />}
-        keyExtractor={(item) => item._id}
-        ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
-      />
-    </MainWrapper>
+    <TabView
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      initialLayout={{ width: layout.width }}
+      renderTabBar={(props) => <TopTabBar {...props} setIndex={setIndex} />}
+    />
   );
 }
