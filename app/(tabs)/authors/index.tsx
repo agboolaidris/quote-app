@@ -234,21 +234,12 @@ export default function AuthorScreen() {
   return (
     <MainWrapper>
       <FlatList
-        numColumns={3}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         data={authors}
-        renderItem={({ item }) => (
-          <View
-            style={{
-              padding: 5,
-              width: "33.3%",
-            }}
-          >
-            <AuthorCard {...item} />
-          </View>
-        )}
+        renderItem={({ item }) => <AuthorCard {...item} />}
         keyExtractor={(item) => item._id}
+        ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
       />
     </MainWrapper>
   );
