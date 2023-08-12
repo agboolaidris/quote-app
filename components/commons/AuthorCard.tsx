@@ -10,6 +10,7 @@ import { COLORS, SIZES } from "@/constants";
 import { useRouter } from "expo-router";
 import { AnimatePressable } from "./AnimatePressable";
 import { BookMarkIcon } from "../icons/BookMark";
+import { randomStringFromArray } from "@/utils/randomStringFromArray";
 
 type AuthorCardProps = {
   _id: string;
@@ -44,62 +45,25 @@ export const AuthorCard = ({
   };
 
   return (
-    <Pressable onPress={onPress}>
-      <View
-        style={{
-          flexDirection: "row",
-        }}
-      >
-        <View style={{ position: "relative", zIndex: 20 }}>
-          <View
+    <AnimatePressable onPress={onPress} style={{ padding: 15 }}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Image
+            source={source}
             style={{
-              marginTop: "auto",
-              zIndex: 20,
-              backgroundColor: COLORS.gray[50],
-              padding: 10,
-              borderRadius: 100,
+              width: 40,
+              height: 40,
+              resizeMode: "stretch",
+              borderRadius: 80,
             }}
-          >
-            <Image
-              source={source}
-              style={{
-                width: 80,
-                height: 80,
-                resizeMode: "stretch",
-                borderRadius: 80,
-              }}
-              onError={handleImageError}
-            />
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              bottom: 0,
-              backgroundColor: COLORS.gray[200],
-              height: 50,
-              width: "50%",
-              right: -3,
-            }}
+            onError={handleImageError}
           />
-        </View>
-
-        <View
-          style={{
-            backgroundColor: COLORS.gray[200],
-            flex: 1,
-            padding: 10,
-            borderBottomRightRadius: 10,
-            borderTopRightRadius: 10,
-            borderTopLeftRadius: 10,
-            position: "relative",
-          }}
-        >
-          <View style={{ zIndex: 20 }}>
+          <View style={{ paddingLeft: 15 }}>
             <Text
               style={{
-                fontSize: SIZES.md,
-                fontWeight: "bold",
-                color: COLORS.gray[800],
+                //fontSize: SIZES.sm,
+                fontWeight: "500",
+                color: COLORS.gray[500],
               }}
             >
               {name}
@@ -107,50 +71,41 @@ export const AuthorCard = ({
             <Text
               style={{
                 fontSize: SIZES.sm,
-                color: COLORS.gray[800],
-                marginTop: 5,
-                fontWeight: "400",
+                color: COLORS.rose[600],
+                marginRight: 10,
               }}
             >
-              {bio}
+              {quoteCount} {quoteCount > 1 ? "quotes" : "quote"}
             </Text>
-            <View
-              style={{
-                marginTop: 10,
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: SIZES.sm,
-                  fontWeight: "bold",
-                  color: COLORS.rose[900],
-                  marginRight: 10,
-                }}
-              >
-                {quoteCount} {quoteCount > 1 ? "quotes" : "quote"}
-              </Text>
-              <AnimatePressable
-                style={{
-                  marginLeft: "auto",
-                  flexDirection: "row",
-                  flex: 1,
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-              >
-                <BookMarkIcon
-                  width={25}
-                  height={25}
-                  stroke={true ? COLORS.rose[900] : COLORS.gray[500]}
-                  fill={true ? COLORS.rose[900] : "none"}
-                />
-              </AnimatePressable>
-            </View>
           </View>
         </View>
+        <AnimatePressable
+          style={{
+            marginLeft: "auto",
+            flexDirection: "row",
+            flex: 1,
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          <BookMarkIcon
+            width={16}
+            height={16}
+            stroke={true ? COLORS.rose[600] : COLORS.gray[500]}
+            fill={true ? COLORS.rose[600] : "none"}
+          />
+        </AnimatePressable>
       </View>
-    </Pressable>
+
+      <Text
+        style={{
+          color: COLORS.gray[700],
+          marginTop: 15,
+          lineHeight: 22,
+        }}
+      >
+        {bio}
+      </Text>
+    </AnimatePressable>
   );
 };
