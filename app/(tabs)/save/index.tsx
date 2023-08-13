@@ -15,7 +15,7 @@ export default function SaveScreen() {
     <SafeAreaView style={styles.container}>
       <SafeAreaView>
         <Text>Save</Text>
-        <Link href="/(tabs)/(categories)">
+        <Link href="/(tabs)/(home)">
           <Text style={styles.title}>JJJJ</Text>
         </Link>
       </SafeAreaView>

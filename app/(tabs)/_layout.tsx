@@ -2,7 +2,7 @@ import { Tabs } from "expo-router";
 import { View, Platform } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { BookMarkIcon } from "@/components/icons/BookMark";
-import { CategoryIcon } from "@/components/icons/Cateory";
+import { CategoryIcon } from "@/components/icons/Category";
 import { COLORS } from "@/constants";
 import { HomeIcon } from "@/components/icons/Home";
 import { AnimatePressable } from "@/components/commons/AnimatePressable";
@@ -16,7 +16,7 @@ type TabProps = { focused: boolean; size: number };
 
 const tabs = [
   {
-    name: "authors",
+    name: "(home)",
     icon: ({ focused, size }: TabProps) => (
       <HomeIcon
         height={size}
@@ -29,7 +29,7 @@ const tabs = [
   },
 
   {
-    name: "(categories)/index",
+    name: "allQuotes",
     icon: ({ focused, size }: TabProps) => (
       <CategoryIcon
         height={size}
@@ -41,7 +41,7 @@ const tabs = [
   },
 
   {
-    name: "saves",
+    name: "save",
     icon: ({ focused, size }: TabProps) => (
       <BookMarkIcon
         height={size}
