@@ -14,7 +14,7 @@ export default function SaveLayout() {
         headerTitle: "Quotes.",
         headerStyle: { backgroundColor: COLORS.gray[50] },
         header: Header,
-        headerShown: false,
+        // headerShown: false,
       }}
     >
       <Stack.Screen name="index" options={{ headerTitle: "Authors." }} />

@@ -22,11 +22,10 @@ export const Header = ({ navigation, options }: NativeStackHeaderProps) => {
   return (
     <SafeAreaView
       style={{
-        backgroundColor: COLORS.gray[700],
+        backgroundColor: COLORS.gray[50],
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
       }}
     >
-      <StatusBar backgroundColor={COLORS.gray[700]} barStyle="light-content" />
       <View
         style={{
           flexDirection: "row",
@@ -76,8 +75,8 @@ export const TopTabBar = (props: RenderTabBarProps) => {
     <SafeAreaView
       style={{
         flexDirection: "row",
-        backgroundColor: COLORS.gray[700],
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        backgroundColor: COLORS.gray[50],
+        //paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
       }}
     >
       {props.navigationState.routes.map((route, i) => {
