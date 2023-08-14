@@ -31,15 +31,7 @@ export const CategoryCard = ({
           <Text
             style={{
               fontSize: SIZES.lg,
-              color: randomStringFromArray([
-                "#f97316",
-                "#84cc16",
-                "#06b6d4",
-                "#3b82f6",
-                "#db2777",
-                "#fb7185",
-                "#a855f7",
-              ]),
+              color: randomStringFromArray(COLORS.random),
             }}
           >
             {name}

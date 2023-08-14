@@ -1,10 +1,10 @@
 import {
-  Text,
   View,
   SafeAreaView,
   Platform,
   StatusBar,
   Animated,
+  Dimensions,
 } from "react-native";
 import { ArrowBackIcon } from "@/components/icons/ArrowBack";
 import { AnimatePressable } from "@/components/commons/AnimatePressable";
@@ -30,6 +30,7 @@ export const Header = ({ canGoBack, goBack }: HeaderProps) => {
           flexDirection: "row",
           alignItems: "center",
           position: "relative",
+          paddingBottom: 10,
         }}
       >
         {canGoBack && (
@@ -69,46 +70,47 @@ type RenderTabBarProps = SceneRendererProps & {
 
 export const TopTabBar = (props: RenderTabBarProps) => {
   return (
-    <SafeAreaView>
-      <View
-        style={{
-          flexDirection: "row",
-          backgroundColor: COLORS.gray[50],
-          paddingHorizontal: 15,
-          gap: 10,
-        }}
-      >
-        {props.navigationState.routes.map((route, i) => {
-          return (
-            <AnimatePressable
-              onPress={() => props.setIndex(i)}
+    <View
+      style={{
+        flexDirection: "row",
+        backgroundColor: COLORS.gray[50],
+        paddingHorizontal: 15,
+        gap: 10,
+        minWidth: Dimensions.get("screen").width,
+      }}
+    >
+      {props.navigationState.routes.map((route, i) => {
+        return (
+          <AnimatePressable
+            onPress={() => props.setIndex(i)}
+            style={{
+              //paddingVertical: 10,
+              backgroundColor:
+                props.navigationState.index === i
+                  ? COLORS.gray[600]
+                  : COLORS.gray[100],
+              borderRadius: 50,
+              marginVertical: 15,
+              flex: 1,
+              paddingHorizontal: 30,
+            }}
+            key={i}
+          >
+            <Animated.Text
               style={{
-                flex: 1,
-                backgroundColor:
+                textAlign: "center",
+                paddingVertical: 5,
+                color:
                   props.navigationState.index === i
-                    ? COLORS.gray[600]
-                    : COLORS.gray[100],
-                borderRadius: 50,
-                marginVertical: 15,
+                    ? COLORS.gray[50]
+                    : COLORS.gray[600],
               }}
-              key={i}
             >
-              <Animated.Text
-                style={{
-                  textAlign: "center",
-                  paddingVertical: 5,
-                  color:
-                    props.navigationState.index === i
-                      ? COLORS.gray[50]
-                      : COLORS.gray[600],
-                }}
-              >
-                {route.title}
-              </Animated.Text>
-            </AnimatePressable>
-          );
-        })}
-      </View>
-    </SafeAreaView>
+              {route.title}
+            </Animated.Text>
+          </AnimatePressable>
+        );
+      })}
+    </View>
   );
 };
