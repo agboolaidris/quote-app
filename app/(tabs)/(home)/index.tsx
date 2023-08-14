@@ -5,7 +5,7 @@ import { MainWrapper } from "@/components/commons/Wrapper";
 
 import { TabView, SceneMap } from "react-native-tab-view";
 import React from "react";
-import { View, useWindowDimensions } from "react-native";
+import { ScrollView, View, useWindowDimensions } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { authors, catagories, quotes } from "@/constants/data";
 import { CategoryCard } from "@/components/commons/CategoryCard";
@@ -67,7 +67,7 @@ export default function TabViewExample() {
   const [routes] = React.useState([
     { key: "author", title: "Authors" },
     { key: "categories", title: "Categories" },
-    { key: "famousQuotes", title: "Famous Quotes" },
+    { key: "famousQuotes", title: "Popular Quotes" },
   ]);
 
   return (
@@ -76,7 +76,17 @@ export default function TabViewExample() {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
-      renderTabBar={(props) => <TopTabBar {...props} setIndex={setIndex} />}
+      renderTabBar={(props) => (
+        <View style={{ backgroundColor: COLORS.gray[50] }}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+          >
+            <TopTabBar setIndex={setIndex} {...props} />
+          </ScrollView>
+        </View>
+      )}
     />
   );
 }
