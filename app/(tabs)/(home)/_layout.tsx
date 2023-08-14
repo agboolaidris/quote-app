@@ -13,12 +13,16 @@ export default function SaveLayout() {
         },
         headerTitle: "Quotes.",
         headerStyle: { backgroundColor: COLORS.gray[50] },
-        header: Header,
-        // headerShown: false,
+        header: ({ navigation }) => (
+          <Header
+            canGoBack={navigation.canGoBack()}
+            goBack={navigation.goBack}
+          />
+        ),
       }}
     >
-      <Stack.Screen name="index" options={{ headerTitle: "Authors." }} />
-      <Stack.Screen name="[slug]" options={{ headerTitle: "Author." }} />
+      <Stack.Screen name="index" />
+      <Stack.Screen name="[slug]" />
     </Stack>
   );
 }

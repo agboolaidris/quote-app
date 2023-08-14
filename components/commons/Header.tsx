@@ -6,19 +6,18 @@ import {
   StatusBar,
   Animated,
 } from "react-native";
-import { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { ArrowBackIcon } from "@/components/icons/ArrowBack";
 import { AnimatePressable } from "@/components/commons/AnimatePressable";
-import { COLORS, SIZES } from "@/constants";
+import { COLORS } from "@/constants";
 import { NavigationState, SceneRendererProps } from "react-native-tab-view";
+import { Logo } from "../icons/Logo";
 
-export const Header = ({ navigation, options }: NativeStackHeaderProps) => {
-  const isBack = navigation.canGoBack();
-  const goBack = () => {
-    if (isBack) {
-      navigation.goBack();
-    }
-  };
+type HeaderProps = {
+  goBack?: () => void;
+  canGoBack?: boolean;
+};
+
+export const Header = ({ canGoBack, goBack }: HeaderProps) => {
   return (
     <SafeAreaView
       style={{
@@ -33,29 +32,27 @@ export const Header = ({ navigation, options }: NativeStackHeaderProps) => {
           position: "relative",
         }}
       >
-        {isBack && (
+        {canGoBack && (
           <AnimatePressable
             onPress={goBack}
             style={{
               position: "absolute",
               zIndex: 10,
-              left: 5,
+              left: 15,
             }}
           >
-            <ArrowBackIcon width={30} height={30} color={COLORS.gray[50]} />
+            <ArrowBackIcon width={30} height={30} color={COLORS.gray[600]} />
           </AnimatePressable>
         )}
-        <View style={{ flex: 1, paddingVertical: 5 }}>
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: SIZES.lg,
-              color: COLORS.gray[50],
-              fontWeight: "bold",
-            }}
-          >
-            {options.headerTitle?.toString()}
-          </Text>
+        <View
+          style={{
+            flex: 1,
+            paddingVertical: 5,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Logo width={30} height={30} color={COLORS.gray[600]} />
         </View>
       </View>
     </SafeAreaView>
@@ -72,39 +69,46 @@ type RenderTabBarProps = SceneRendererProps & {
 
 export const TopTabBar = (props: RenderTabBarProps) => {
   return (
-    <SafeAreaView
-      style={{
-        flexDirection: "row",
-        backgroundColor: COLORS.gray[50],
-        //paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-      }}
-    >
-      {props.navigationState.routes.map((route, i) => {
-        return (
-          <AnimatePressable
-            onPress={() => props.setIndex(i)}
-            style={{
-              flex: 1,
-              borderBottomColor: COLORS.gray[300],
-              borderBottomWidth: props.navigationState.index === i ? 3 : 0,
-            }}
-            key={i}
-          >
-            <Animated.Text
+    <SafeAreaView>
+      <View
+        style={{
+          flexDirection: "row",
+          backgroundColor: COLORS.gray[50],
+          paddingHorizontal: 15,
+          gap: 10,
+        }}
+      >
+        {props.navigationState.routes.map((route, i) => {
+          return (
+            <AnimatePressable
+              onPress={() => props.setIndex(i)}
               style={{
-                textAlign: "center",
-                paddingVertical: 5,
-                color:
+                flex: 1,
+                backgroundColor:
                   props.navigationState.index === i
-                    ? COLORS.gray[300]
-                    : COLORS.gray[500],
+                    ? COLORS.gray[600]
+                    : COLORS.gray[100],
+                borderRadius: 50,
+                marginVertical: 15,
               }}
+              key={i}
             >
-              {route.title}
-            </Animated.Text>
-          </AnimatePressable>
-        );
-      })}
+              <Animated.Text
+                style={{
+                  textAlign: "center",
+                  paddingVertical: 5,
+                  color:
+                    props.navigationState.index === i
+                      ? COLORS.gray[50]
+                      : COLORS.gray[600],
+                }}
+              >
+                {route.title}
+              </Animated.Text>
+            </AnimatePressable>
+          );
+        })}
+      </View>
     </SafeAreaView>
   );
 };

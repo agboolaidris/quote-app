@@ -6,53 +6,7 @@ import { CategoryIcon } from "@/components/icons/Category";
 import { COLORS } from "@/constants";
 import { HomeIcon } from "@/components/icons/Home";
 import { AnimatePressable } from "@/components/commons/AnimatePressable";
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "home",
-};
-
-type TabProps = { focused: boolean; size: number };
-
-const tabs = [
-  {
-    name: "(home)",
-    icon: ({ focused, size }: TabProps) => (
-      <HomeIcon
-        height={size}
-        width={size}
-        stroke={focused ? "none" : COLORS.gray[500]}
-        fill={focused ? COLORS.gray[50] : "none"}
-      />
-    ),
-    label: "Authors",
-  },
-
-  {
-    name: "allQuotes",
-    icon: ({ focused, size }: TabProps) => (
-      <CategoryIcon
-        height={size}
-        width={size}
-        fill={focused ? COLORS.gray[50] : COLORS.gray[500]}
-      />
-    ),
-    label: "Category",
-  },
-
-  {
-    name: "save",
-    icon: ({ focused, size }: TabProps) => (
-      <BookMarkIcon
-        height={size}
-        width={size}
-        stroke={focused ? COLORS.gray[50] : COLORS.gray[500]}
-        fill={focused ? COLORS.gray[50] : "none"}
-      />
-    ),
-    label: "Save",
-  },
-];
+import { Header } from "@/components/commons/Header";
 
 function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   return (
@@ -125,20 +79,50 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
 export default function TabLayout() {
   return (
-    <Tabs tabBar={(props) => <MyTabBar {...props} />}>
-      {tabs.map(({ label, name, icon: Icon }) => (
-        <Tabs.Screen
-          name={name}
-          key={name}
-          options={{
-            headerShown: false,
-            tabBarLabel: label,
-            tabBarIcon: ({ focused, size }) => (
-              <Icon focused={focused} size={size} />
-            ),
-          }}
-        />
-      ))}
+    <Tabs
+      tabBar={(props) => <MyTabBar {...props} />}
+      screenOptions={{ header: () => <Header /> }}
+    >
+      <Tabs.Screen
+        name="(home)"
+        options={{
+          tabBarIcon: ({ focused, size }) => (
+            <HomeIcon
+              height={size}
+              width={size}
+              stroke={focused ? "none" : COLORS.gray[500]}
+              fill={focused ? COLORS.gray[50] : "none"}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="allQuotes"
+        options={{
+          tabBarIcon: ({ focused, size }) => (
+            <CategoryIcon
+              height={size}
+              width={size}
+              fill={focused ? COLORS.gray[50] : COLORS.gray[500]}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="save"
+        options={{
+          tabBarIcon: ({ focused, size }) => (
+            <BookMarkIcon
+              height={size}
+              width={size}
+              stroke={focused ? COLORS.gray[50] : COLORS.gray[500]}
+              fill={focused ? COLORS.gray[50] : "none"}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
     </Tabs>
   );
 }
