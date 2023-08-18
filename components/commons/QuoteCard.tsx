@@ -5,8 +5,9 @@ import { AnimatePressable } from "./AnimatePressable";
 import { BookMarkIcon } from "../icons/BookMark";
 import { ShareIcon } from "../icons/Share";
 import { ModalTypes, useModalStore } from "../store/modalStore";
+import { QuoteIcon } from "../icons/Quote";
 
-type QuoteCardProps = {
+export type QuoteCardProps = {
   _id: string;
   author: string;
   content: string;
@@ -26,7 +27,7 @@ export const QuoteCard = (props: QuoteCardProps) => {
   return (
     <View
       style={{
-        padding: 15,
+        paddingVertical: 5,
       }}
     >
       <View
@@ -49,7 +50,16 @@ export const QuoteCard = (props: QuoteCardProps) => {
         </Text>
       </View>
       <View style={{ marginTop: 20 }}>
-        <Text style={{ color: COLORS.gray[900] }}>{content}</Text>
+        <Text style={{ color: COLORS.gray[900] }}>
+          <QuoteIcon
+            width={20}
+            height={20}
+            color={COLORS.gray[900]}
+            //fontSize={5}
+            //style={{ width: 20, height: 20 }}
+          />
+          {content}
+        </Text>
         <Text
           style={{
             marginTop: 20,
@@ -58,7 +68,7 @@ export const QuoteCard = (props: QuoteCardProps) => {
             lineHeight: 22,
           }}
         >
-          "{author}
+          {author}
         </Text>
       </View>
 
@@ -67,23 +77,37 @@ export const QuoteCard = (props: QuoteCardProps) => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-end",
+          rowGap: 4,
+          columnGap: 9,
         }}
       >
-        <AnimatePressable style={{ paddingHorizontal: 10 }}>
+        <AnimatePressable
+          style={{
+            paddingHorizontal: 20,
+            paddingVertical: 5,
+            backgroundColor: COLORS.gray[100],
+            borderRadius: 3,
+          }}
+        >
           <BookMarkIcon
-            width={16}
-            height={16}
+            width={12}
+            height={12}
             stroke={true ? COLORS.rose[600] : COLORS.gray[500]}
             fill={true ? COLORS.rose[600] : "none"}
           />
         </AnimatePressable>
         <AnimatePressable
-          style={{ paddingHorizontal: 10 }}
+          style={{
+            paddingHorizontal: 20,
+            paddingVertical: 5,
+            backgroundColor: COLORS.gray[100],
+            borderRadius: 3,
+          }}
           onPress={handleShare}
         >
           <ShareIcon
-            width={16}
-            height={16}
+            width={12}
+            height={12}
             stroke={COLORS.gray[500]}
             fill={COLORS.gray[500]}
           />
