@@ -1,16 +1,11 @@
-import {
-  View,
-  Text,
-  Image,
-  ImageSourcePropType,
-  Pressable,
-} from "react-native";
-import React, { useState } from "react";
+import { View, Text } from "react-native";
+import React from "react";
 import { COLORS, SIZES } from "@/constants";
 import { useRouter } from "expo-router";
 import { AnimatePressable } from "./AnimatePressable";
 import { BookMarkIcon } from "../icons/BookMark";
 import { randomStringFromArray } from "@/utils/randomStringFromArray";
+import { AuthorImageCard } from "./AuthorImageCard";
 
 type AuthorCardProps = {
   _id: string;
@@ -30,38 +25,28 @@ export const AuthorCard = ({
   bio,
   quoteCount,
 }: AuthorCardProps) => {
-  const [source, setSource] = useState<ImageSourcePropType>({
-    uri: `https://images.quotable.dev/profile/200/${slug}.jpg`,
-  });
-
-  const handleImageError = () => {
-    // Update the image source to fallback URI when the original image fails to load
-    setSource(require("@/assets/images/avatar.jpg"));
-  };
   const router = useRouter();
 
   const onPress = () => {
-    router.push(`/(tabs)/authors/${slug}`);
+    //router.push(`/(tabs)/authors/${slug}`);
   };
 
   return (
     <AnimatePressable onPress={onPress} style={{ padding: 15 }}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={source}
+          <AuthorImageCard
             style={{
               width: 40,
               height: 40,
               resizeMode: "stretch",
               borderRadius: 80,
             }}
-            onError={handleImageError}
+            slug={slug}
           />
           <View style={{ paddingLeft: 15 }}>
             <Text
               style={{
-                //fontSize: SIZES.sm,
                 fontWeight: "500",
                 color: COLORS.gray[500],
               }}
