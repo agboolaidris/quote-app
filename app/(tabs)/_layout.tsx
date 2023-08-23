@@ -98,7 +98,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="allQuotes"
+        name="randomQuotes"
         options={{
           tabBarIcon: ({ focused, size }) => (
             <CategoryIcon

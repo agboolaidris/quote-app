@@ -51,13 +51,7 @@ export const QuoteCard = (props: QuoteCardProps) => {
       </View>
       <View style={{ marginTop: 20 }}>
         <Text style={{ color: COLORS.gray[900] }}>
-          <QuoteIcon
-            width={20}
-            height={20}
-            color={COLORS.gray[900]}
-            //fontSize={5}
-            //style={{ width: 20, height: 20 }}
-          />
+          <QuoteIcon width={20} height={20} color={COLORS.gray[900]} />
           {content}
         </Text>
         <Text

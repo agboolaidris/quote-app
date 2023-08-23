@@ -4,7 +4,7 @@ import { TopTabBar } from "@/components/commons/Header";
 import { MainWrapper } from "@/components/commons/Wrapper";
 
 import { TabView, SceneMap } from "react-native-tab-view";
-import React from "react";
+import React, { useCallback } from "react";
 import { ScrollView, View, useWindowDimensions } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { authors, catagories, quotes } from "@/constants/data";
@@ -12,20 +12,22 @@ import { CategoryCard } from "@/components/commons/CategoryCard";
 import { QuoteCard } from "@/components/commons/QuoteCard";
 import { COLORS } from "@/constants";
 
-const AuthorRoute = () => (
-  <MainWrapper>
-    <FlatList
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-      data={authors}
-      renderItem={({ item }) => <AuthorCard {...item} />}
-      keyExtractor={(item) => item._id}
-      ItemSeparatorComponent={() => (
-        <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
-      )}
-    />
-  </MainWrapper>
-);
+const AuthorRoute = () => {
+  return (
+    <MainWrapper>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        data={authors}
+        renderItem={({ item }) => <AuthorCard {...item} />}
+        keyExtractor={(item) => item._id}
+        ItemSeparatorComponent={() => (
+          <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
+        )}
+      />
+    </MainWrapper>
+  );
+};
 
 const CategoryRoute = () => (
   <MainWrapper>
