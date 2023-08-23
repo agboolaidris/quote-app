@@ -1,4 +1,4 @@
-import { View, Text, Share } from "react-native";
+import { View, Text } from "react-native";
 import React from "react";
 import { COLORS, SIZES } from "@/constants";
 import { AnimatePressable } from "./AnimatePressable";
@@ -6,22 +6,29 @@ import { BookMarkIcon } from "../icons/BookMark";
 import { ShareIcon } from "../icons/Share";
 import { ModalTypes, useModalStore } from "../store/modalStore";
 import { QuoteIcon } from "../icons/Quote";
+import { Quote, useQuoteBookmark } from "@/hooks/useBookmarkQuote";
 
-export type QuoteCardProps = {
-  _id: string;
-  author: string;
-  content: string;
-  tags: string[];
-  authorSlug: string;
-  length: number;
-  dateAdded: string;
-  dateModified: string;
-};
+export type QuoteCardProps = Quote;
 export const QuoteCard = (props: QuoteCardProps) => {
-  const { author, content, dateAdded } = props;
+  const { author, content, dateAdded, _id } = props;
   const { openModal } = useModalStore();
+  const { addQuoteToBookmark, bookmarkQuotes, removeQuoteToBookmark } =
+    useQuoteBookmark();
+
+  const isBookmark = bookmarkQuotes?.find((quote) => quote._id === _id);
+
   const handleShare = async () => {
     openModal(ModalTypes.SHARE_MODAL, { quote: props });
+  };
+
+  const handleAddQuoteToBookmark = async () => {
+    try {
+      if (isBookmark) {
+        await removeQuoteToBookmark(props);
+      } else {
+        await addQuoteToBookmark(props);
+      }
+    } catch (error) {}
   };
 
   return (
@@ -82,12 +89,13 @@ export const QuoteCard = (props: QuoteCardProps) => {
             backgroundColor: COLORS.gray[100],
             borderRadius: 3,
           }}
+          onPress={handleAddQuoteToBookmark}
         >
           <BookMarkIcon
             width={12}
             height={12}
-            stroke={true ? COLORS.rose[600] : COLORS.gray[500]}
-            fill={true ? COLORS.rose[600] : "none"}
+            stroke={isBookmark ? COLORS.rose[600] : COLORS.gray[500]}
+            fill={isBookmark ? COLORS.rose[600] : "none"}
           />
         </AnimatePressable>
         <AnimatePressable

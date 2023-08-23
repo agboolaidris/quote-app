@@ -11,7 +11,7 @@ import { BookMarkIcon } from "@/components/icons/BookMark";
 import { AnimatePressable } from "@/components/commons/AnimatePressable";
 import { ShareIcon } from "@/components/icons/Share";
 import { ModalTypes, useModalStore } from "@/components/store/modalStore";
-import { Quote } from "@/hooks/useQuote";
+import { Quote } from "@/hooks/useBookmarkQuote";
 
 export default function RandomQuotes() {
   const width = Dimensions.get("screen").width - 20;

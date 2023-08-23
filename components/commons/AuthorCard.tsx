@@ -3,8 +3,6 @@ import React from "react";
 import { COLORS, SIZES } from "@/constants";
 import { useRouter } from "expo-router";
 import { AnimatePressable } from "./AnimatePressable";
-import { BookMarkIcon } from "../icons/BookMark";
-import { randomStringFromArray } from "@/utils/randomStringFromArray";
 import { AuthorImageCard } from "./AuthorImageCard";
 
 type AuthorCardProps = {
@@ -64,22 +62,6 @@ export const AuthorCard = ({
             </Text>
           </View>
         </View>
-        <AnimatePressable
-          style={{
-            marginLeft: "auto",
-            flexDirection: "row",
-            flex: 1,
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}
-        >
-          <BookMarkIcon
-            width={16}
-            height={16}
-            stroke={true ? COLORS.rose[600] : COLORS.gray[500]}
-            fill={true ? COLORS.rose[600] : "none"}
-          />
-        </AnimatePressable>
       </View>
 
       <Text

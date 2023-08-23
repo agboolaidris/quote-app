@@ -110,7 +110,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="save"
+        name="bookmarkQuotes"
         options={{
           tabBarIcon: ({ focused, size }) => (
             <BookMarkIcon
@@ -120,7 +120,6 @@ export default function TabLayout() {
               fill={focused ? COLORS.gray[50] : "none"}
             />
           ),
-          headerShown: false,
         }}
       />
     </Tabs>
