@@ -10,6 +10,7 @@ type ImageQuoteCardProps = {
   content: string;
   author: string;
   authorSlug: string;
+  invent?: boolean;
 };
 
 export const ImageQuoteCard = ({
@@ -17,6 +18,7 @@ export const ImageQuoteCard = ({
   content,
   author,
   authorSlug,
+  invent,
 }: ImageQuoteCardProps) => {
   return (
     <View
@@ -33,7 +35,7 @@ export const ImageQuoteCard = ({
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text
           style={{
-            color: COLORS.gray[50],
+            color: invent ? COLORS.gray[700] : COLORS.gray[50],
             fontWeight: "800",
             fontSize: SIZES.xl,
           }}
@@ -41,7 +43,9 @@ export const ImageQuoteCard = ({
           <QuoteIcon
             width={30}
             height={30}
-            color={lightenHexColor(backgroundColor, 40)}
+            color={
+              invent ? COLORS.rose[900] : lightenHexColor(backgroundColor, 40)
+            }
           />
           {content}
         </Text>
@@ -59,9 +63,13 @@ export const ImageQuoteCard = ({
             height: 100,
             borderRadius: 50,
             borderWidth: 3,
-            borderColor: lightenHexColor(backgroundColor, 40),
+            borderColor: invent
+              ? COLORS.gray[50]
+              : lightenHexColor(backgroundColor, 40),
             overflow: "hidden",
-            backgroundColor: lightenHexColor(backgroundColor, 40),
+            backgroundColor: invent
+              ? COLORS.gray[50]
+              : lightenHexColor(backgroundColor, 40),
           }}
         >
           <AuthorImageCard
@@ -74,7 +82,7 @@ export const ImageQuoteCard = ({
         </View>
         <Text
           style={{
-            color: COLORS.gray[50],
+            color: invent ? COLORS.gray[700] : COLORS.gray[50],
             fontWeight: "800",
             marginTop: 5,
           }}

@@ -1,6 +1,8 @@
 import { GlobalModals } from "@/components/GlobalModals";
-import { Stack } from "expo-router";
-import { View, Text } from "react-native";
+import { Stack, SplashScreen } from "expo-router";
+
+// Keep the splash screen visible while we fetch resources
+//SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   return (

@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleProp, ViewStyle } from "react-native";
 import React, { ReactNode } from "react";
 import { AnimatePressable } from "./AnimatePressable";
 import { COLORS } from "@/constants";
@@ -6,9 +6,10 @@ import { COLORS } from "@/constants";
 type ButtonProps = {
   onPress?: () => void;
   children: ReactNode;
+  style?: StyleProp<ViewStyle>;
 };
 
-export const Button = ({ children, onPress }: ButtonProps) => {
+export const Button = ({ children, onPress, style }: ButtonProps) => {
   let content = children;
 
   if (typeof children === "string") {
@@ -27,11 +28,14 @@ export const Button = ({ children, onPress }: ButtonProps) => {
 
   return (
     <AnimatePressable
-      style={{
-        backgroundColor: COLORS.gray[500],
-        padding: 20,
-        borderRadius: 10,
-      }}
+      style={[
+        {
+          backgroundColor: COLORS.gray[500],
+          padding: 20,
+          borderRadius: 10,
+        },
+        style,
+      ]}
       onPress={onPress}
     >
       {content}
