@@ -2,7 +2,6 @@ import { View, Text } from "react-native";
 import React from "react";
 import { COLORS, SIZES } from "@/constants";
 import { AnimatePressable } from "./AnimatePressable";
-import { BookMarkIcon } from "../icons/BookMark";
 import { randomStringFromArray } from "@/utils/randomStringFromArray";
 
 type CategoryCardProps = {
@@ -46,22 +45,6 @@ export const CategoryCard = ({
             {quoteCount} {quoteCount > 1 ? "quotes" : "quote"}
           </Text>
         </View>
-        <AnimatePressable
-          style={{
-            marginLeft: "auto",
-            flexDirection: "row",
-            flex: 1,
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}
-        >
-          <BookMarkIcon
-            width={20}
-            height={20}
-            stroke={true ? COLORS.rose[600] : COLORS.gray[500]}
-            fill={true ? COLORS.rose[600] : "none"}
-          />
-        </AnimatePressable>
       </View>
 
       <View
