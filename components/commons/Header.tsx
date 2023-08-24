@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   Platform,
   StatusBar,
-  Animated,
   Dimensions,
 } from "react-native";
 import { ArrowBackIcon } from "@/components/icons/ArrowBack";
@@ -11,6 +10,7 @@ import { AnimatePressable } from "@/components/commons/AnimatePressable";
 import { COLORS } from "@/constants";
 import { NavigationState, SceneRendererProps } from "react-native-tab-view";
 import { Logo } from "../icons/Logo";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 type HeaderProps = {
   goBack?: () => void;
@@ -18,45 +18,48 @@ type HeaderProps = {
 };
 
 export const Header = ({ canGoBack, goBack }: HeaderProps) => {
+  const Animate = FadeIn.duration(100);
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: COLORS.gray[50],
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-      }}
-    >
-      <View
+    <Animated.View entering={Animate} exiting={Animate}>
+      <SafeAreaView
         style={{
-          flexDirection: "row",
-          alignItems: "center",
-          position: "relative",
-          paddingBottom: 10,
+          backgroundColor: COLORS.gray[50],
+          paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         }}
       >
-        {canGoBack && (
-          <AnimatePressable
-            onPress={goBack}
-            style={{
-              position: "absolute",
-              zIndex: 10,
-              left: 15,
-            }}
-          >
-            <ArrowBackIcon width={30} height={30} color={COLORS.gray[600]} />
-          </AnimatePressable>
-        )}
         <View
           style={{
-            flex: 1,
-            paddingVertical: 5,
-            justifyContent: "center",
+            flexDirection: "row",
             alignItems: "center",
+            position: "relative",
+            paddingBottom: 10,
           }}
         >
-          <Logo width={30} height={30} color={COLORS.gray[600]} />
+          {canGoBack && (
+            <AnimatePressable
+              onPress={goBack}
+              style={{
+                position: "absolute",
+                zIndex: 10,
+                left: 15,
+              }}
+            >
+              <ArrowBackIcon width={30} height={30} color={COLORS.gray[600]} />
+            </AnimatePressable>
+          )}
+          <View
+            style={{
+              flex: 1,
+              paddingVertical: 5,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Logo width={30} height={30} color={COLORS.gray[600]} />
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </Animated.View>
   );
 };
 

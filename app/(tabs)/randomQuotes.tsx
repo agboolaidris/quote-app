@@ -11,16 +11,90 @@ import { BookMarkIcon } from "@/components/icons/BookMark";
 import { AnimatePressable } from "@/components/commons/AnimatePressable";
 import { ShareIcon } from "@/components/icons/Share";
 import { ModalTypes, useModalStore } from "@/components/store/modalStore";
-import { Quote } from "@/hooks/useBookmarkQuote";
+import { Quote, useQuoteBookmark } from "@/hooks/useBookmarkQuote";
+
+type RandomQuoteProps = Quote;
+
+const RandomQuote = (props: RandomQuoteProps) => {
+  const { addQuoteToBookmark, bookmarkQuotes, removeQuoteToBookmark } =
+    useQuoteBookmark();
+  const { openModal } = useModalStore();
+  const isBookmark = bookmarkQuotes?.find((quote) => quote._id === props._id);
+
+  const handleShare = async () => {
+    openModal(ModalTypes.SHARE_MODAL, { quote: props });
+  };
+
+  const handleAddQuoteToBookmark = async () => {
+    try {
+      if (isBookmark) {
+        await removeQuoteToBookmark(props);
+      } else {
+        await addQuoteToBookmark(props);
+      }
+    } catch (error) {}
+  };
+
+  return (
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 20,
+      }}
+    >
+      <ImageQuoteCard {...props} backgroundColor={COLORS.gray[100]} invent />
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          columnGap: 30,
+          width: "100%",
+          paddingHorizontal: 20,
+        }}
+      >
+        <AnimatePressable
+          onPress={handleShare}
+          style={{
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            backgroundColor: COLORS.gray[100],
+            borderRadius: 20,
+          }}
+        >
+          <ShareIcon
+            width={20}
+            height={20}
+            stroke={COLORS.gray[500]}
+            fill={COLORS.gray[500]}
+          />
+        </AnimatePressable>
+        <AnimatePressable
+          onPress={handleAddQuoteToBookmark}
+          style={{
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            backgroundColor: COLORS.gray[100],
+            borderRadius: 20,
+          }}
+        >
+          <BookMarkIcon
+            width={20}
+            height={20}
+            stroke={isBookmark ? COLORS.rose[600] : COLORS.gray[500]}
+            fill={isBookmark ? COLORS.rose[600] : COLORS.gray[500]}
+          />
+        </AnimatePressable>
+      </View>
+    </View>
+  );
+};
 
 export default function RandomQuotes() {
   const width = Dimensions.get("screen").width - 20;
 
   const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
-  const { openModal } = useModalStore();
-  const handleShare = async (quote: Quote) => {
-    openModal(ModalTypes.SHARE_MODAL, { quote });
-  };
 
   return (
     <MainWrapper>
@@ -39,52 +113,11 @@ export default function RandomQuotes() {
           </View>
           <Carousel
             data={quotes}
-            pagingEnabled
             onSnapToItem={setActiveQuoteIndex}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 20,
-                }}
-              >
-                <ImageQuoteCard
-                  {...item}
-                  backgroundColor={COLORS.gray[100]}
-                  invent
-                />
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                    columnGap: 30,
-                    width: "100%",
-                    paddingHorizontal: 20,
-                  }}
-                >
-                  <AnimatePressable onPress={() => handleShare(item)}>
-                    <ShareIcon
-                      width={20}
-                      height={20}
-                      stroke={COLORS.gray[500]}
-                      fill={COLORS.gray[500]}
-                    />
-                  </AnimatePressable>
-                  <AnimatePressable style={{}}>
-                    <BookMarkIcon
-                      width={20}
-                      height={20}
-                      stroke={true ? COLORS.rose[600] : COLORS.gray[500]}
-                      fill={true ? COLORS.rose[600] : "none"}
-                    />
-                  </AnimatePressable>
-                </View>
-              </View>
-            )}
+            renderItem={({ item }) => <RandomQuote {...item} />}
             sliderWidth={width}
             itemWidth={width}
+            vertical={false}
           />
         </View>
       </View>

@@ -1,23 +1,21 @@
+import { Empty } from "@/components/commons/Empty";
 import { QuoteCard } from "@/components/commons/QuoteCard";
 import { MainWrapper } from "@/components/commons/Wrapper";
-import { COLORS } from "@/constants";
-import { quotes } from "@/constants/data";
+
 import { useQuoteBookmark } from "@/hooks/useBookmarkQuote";
-import { FlatList, View } from "react-native";
+
+import { CustomFlatList } from "@/components/commons/CustomFlatList";
 
 const BookmarkQuotes = () => {
   const { bookmarkQuotes } = useQuoteBookmark();
+
   return (
     <MainWrapper>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
+      <CustomFlatList
         data={bookmarkQuotes}
         renderItem={({ item }) => <QuoteCard {...item} />}
         keyExtractor={(item) => item._id}
-        ItemSeparatorComponent={() => (
-          <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
-        )}
+        ListEmptyComponent={<Empty />}
       />
     </MainWrapper>
   );
