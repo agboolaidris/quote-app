@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, useNavigation } from "expo-router";
 import { View, Platform } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { BookMarkIcon } from "@/components/icons/BookMark";
@@ -78,6 +78,8 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 }
 
 export default function TabLayout() {
+  const navigate = useNavigation();
+
   return (
     <Tabs
       tabBar={(props) => <MyTabBar {...props} />}
