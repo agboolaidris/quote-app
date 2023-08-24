@@ -1,3 +1,4 @@
+import { Empty } from "@/components/commons/Empty";
 import { QuoteCard } from "@/components/commons/QuoteCard";
 import { MainWrapper } from "@/components/commons/Wrapper";
 import { COLORS } from "@/constants";
@@ -18,6 +19,9 @@ const BookmarkQuotes = () => {
         ItemSeparatorComponent={() => (
           <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
         )}
+        ListEmptyComponent={<Empty />}
+        contentContainerStyle={{ flexGrow: 1 }}
+        style={{ height: "100%" }}
       />
     </MainWrapper>
   );

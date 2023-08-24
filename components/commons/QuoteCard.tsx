@@ -84,10 +84,10 @@ export const QuoteCard = (props: QuoteCardProps) => {
       >
         <AnimatePressable
           style={{
-            paddingHorizontal: 20,
-            paddingVertical: 5,
+            paddingHorizontal: 10,
+            paddingVertical: 10,
             backgroundColor: COLORS.gray[100],
-            borderRadius: 3,
+            borderRadius: 20,
           }}
           onPress={handleAddQuoteToBookmark}
         >
@@ -95,15 +95,15 @@ export const QuoteCard = (props: QuoteCardProps) => {
             width={12}
             height={12}
             stroke={isBookmark ? COLORS.rose[600] : COLORS.gray[500]}
-            fill={isBookmark ? COLORS.rose[600] : "none"}
+            fill={isBookmark ? COLORS.rose[600] : COLORS.gray[500]}
           />
         </AnimatePressable>
         <AnimatePressable
           style={{
-            paddingHorizontal: 20,
-            paddingVertical: 5,
+            paddingHorizontal: 10,
+            paddingVertical: 10,
             backgroundColor: COLORS.gray[100],
-            borderRadius: 3,
+            borderRadius: 20,
           }}
           onPress={handleShare}
         >
