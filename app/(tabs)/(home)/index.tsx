@@ -4,21 +4,19 @@ import { TopTabBar } from "@/components/commons/Header";
 import { MainWrapper } from "@/components/commons/Wrapper";
 
 import { TabView, SceneMap } from "react-native-tab-view";
-import React, { useCallback } from "react";
+import React from "react";
 import {
-  NativeScrollEvent,
-  NativeSyntheticEvent,
   SafeAreaView,
   ScrollView,
   View,
   useWindowDimensions,
 } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
-import { authors, catagories, quotes } from "@/constants/data";
+import { authors, catagories } from "@/constants/data";
 import { CategoryCard } from "@/components/commons/CategoryCard";
 import { QuoteCard } from "@/components/commons/QuoteCard";
 import { COLORS } from "@/constants";
 import { CustomFlatList } from "@/components/commons/CustomFlatList";
+import { useQuote } from "@/hooks/useQuote";
 
 const AuthorRoute = () => {
   return (
@@ -46,23 +44,26 @@ const CategoryRoute = () => (
   </MainWrapper>
 );
 
-const FamousQuotesRoute = () => (
-  <MainWrapper>
-    <CustomFlatList
-      data={quotes}
-      renderItem={({ item }) => <QuoteCard {...item} />}
-      keyExtractor={(item) => item._id}
-      ItemSeparatorComponent={() => (
-        <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
-      )}
-    />
-  </MainWrapper>
-);
+const AllQuotesRoute = () => {
+  const { quotes, isLoadingQuotes } = useQuote();
+  return (
+    <MainWrapper>
+      <CustomFlatList
+        data={quotes}
+        renderItem={({ item }) => <QuoteCard {...item} />}
+        keyExtractor={(item) => item._id}
+        ItemSeparatorComponent={() => (
+          <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
+        )}
+      />
+    </MainWrapper>
+  );
+};
 
 const renderScene = SceneMap({
   categories: CategoryRoute,
   author: AuthorRoute,
-  famousQuotes: FamousQuotesRoute,
+  quotes: AllQuotesRoute,
 });
 
 export default function TabViewExample() {
@@ -71,7 +72,7 @@ export default function TabViewExample() {
   const [routes] = React.useState([
     { key: "author", title: "Authors" },
     { key: "categories", title: "Categories" },
-    { key: "famousQuotes", title: "Popular Quotes" },
+    { key: "quotes", title: "All Quotes" },
   ]);
 
   return (

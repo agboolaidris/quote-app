@@ -6,7 +6,8 @@ import { BookMarkIcon } from "../icons/BookMark";
 import { ShareIcon } from "../icons/Share";
 import { ModalTypes, useModalStore } from "../store/modalStore";
 import { QuoteIcon } from "../icons/Quote";
-import { Quote, useQuoteBookmark } from "@/hooks/useBookmarkQuote";
+import { useQuoteBookmark } from "@/hooks/useBookmarkQuote";
+import { Quote } from "@/hooks/useQuote";
 
 export type QuoteCardProps = Quote;
 export const QuoteCard = (props: QuoteCardProps) => {

@@ -11,7 +11,8 @@ import { BookMarkIcon } from "@/components/icons/BookMark";
 import { AnimatePressable } from "@/components/commons/AnimatePressable";
 import { ShareIcon } from "@/components/icons/Share";
 import { ModalTypes, useModalStore } from "@/components/store/modalStore";
-import { Quote, useQuoteBookmark } from "@/hooks/useBookmarkQuote";
+import { useQuoteBookmark } from "@/hooks/useBookmarkQuote";
+import { Quote } from "@/hooks/useQuote";
 
 type RandomQuoteProps = Quote;
 

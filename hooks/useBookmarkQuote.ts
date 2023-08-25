@@ -1,16 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-export type Quote = {
-  _id: string;
-  author: string;
-  content: string;
-  tags: string[];
-  authorSlug: string;
-  length: number;
-  dateAdded: string;
-  dateModified: string;
-};
+import { Quote } from "./useQuote";
 
 export const useQuoteBookmark = () => {
   const path: string[] = ["bookmarkQuote"];
