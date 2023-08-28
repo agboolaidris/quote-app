@@ -3,7 +3,6 @@ import { MainWrapper } from "@/components/commons/Wrapper";
 import React, { useState } from "react";
 import Carousel from "react-native-snap-carousel";
 import { Dimensions, View } from "react-native";
-import { quotes } from "@/constants/data";
 import { COLORS } from "@/constants";
 import { ImageQuoteCard } from "@/components/commons/ImageQuoteCard";
 import { Text } from "react-native";
@@ -12,7 +11,7 @@ import { AnimatePressable } from "@/components/commons/AnimatePressable";
 import { ShareIcon } from "@/components/icons/Share";
 import { ModalTypes, useModalStore } from "@/components/store/modalStore";
 import { useQuoteBookmark } from "@/hooks/useBookmarkQuote";
-import { Quote } from "@/hooks/useQuote";
+import { Quote, extractQuotesFromResponses, useQuote } from "@/hooks/useQuote";
 
 type RandomQuoteProps = Quote;
 
@@ -96,7 +95,8 @@ export default function RandomQuotes() {
   const width = Dimensions.get("screen").width - 20;
 
   const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
-
+  const { pages } = useQuote();
+  const quotes = extractQuotesFromResponses(pages || []);
   return (
     <MainWrapper>
       <View style={{ height: "100%", justifyContent: "center" }}>

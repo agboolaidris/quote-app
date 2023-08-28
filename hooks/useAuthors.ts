@@ -1,28 +1,29 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/utils/axiosInstance";
 
-export type Quote = {
+export type Author = {
   _id: string;
-  author: string;
-  content: string;
-  tags: string[];
-  authorSlug: string;
-  length: number;
+  name: string;
+  bio: string;
+  description: string;
+  link: string;
+  quoteCount: 0;
+  slug: string;
   dateAdded: string;
   dateModified: string;
 };
 
-type QuoteResponse = {
+type AuthorResponse = {
   count: number;
   totalCount: number;
   page: number;
   totalPages: number;
   lastItemIndex: number;
-  results: Quote[];
+  results: Author[];
 };
 
-export const useQuote = (queryParam?: string) => {
-  const path: string[] = ["quotes", queryParam || ""];
+export const useAuthor = () => {
+  const path: string[] = ["author"];
 
   const {
     data,
@@ -32,9 +33,8 @@ export const useQuote = (queryParam?: string) => {
     queryKey: path,
     queryFn: async ({ pageParam }) => {
       const page = pageParam?.page + 1 || 1;
-      console.log(`/quotes?${queryParam && queryParam}page=${page}`);
-      const { data } = await axiosInstance.get<QuoteResponse>(
-        `/quotes?${queryParam && queryParam}page=${page}`
+      const { data } = await axiosInstance.get<AuthorResponse>(
+        `/authors/?page=${page}`
       );
       return data;
     },
@@ -54,10 +54,10 @@ export const useQuote = (queryParam?: string) => {
   };
 };
 
-export const extractQuotesFromResponses = (
-  responses: QuoteResponse[]
-): Quote[] => {
-  const quotes: Quote[] = [];
+export const extractAuthorsFromResponses = (
+  responses: AuthorResponse[]
+): Author[] => {
+  const quotes: Author[] = [];
   for (const response of responses) {
     quotes.push(...response.results);
   }

@@ -3,20 +3,22 @@ import React from "react";
 import { COLORS, SIZES } from "@/constants";
 import { AnimatePressable } from "./AnimatePressable";
 import { randomStringFromArray } from "@/utils/randomStringFromArray";
+import { useRouter } from "expo-router";
+import { Category } from "@/hooks/useCategory";
 
-type CategoryCardProps = {
-  _id: string;
-  name: string;
-  slug: string;
-  quoteCount: number;
-  dateAdded: string;
-  dateModified: string;
-};
+type CategoryCardProps = Category & {};
+
 export const CategoryCard = ({
   name,
   quoteCount,
   dateAdded,
+  slug,
 }: CategoryCardProps) => {
+  const router = useRouter();
+
+  const onPress = () => {
+    router.push(`/(tabs)/(home)/categories/${slug}`);
+  };
   return (
     <AnimatePressable
       style={{
@@ -24,6 +26,7 @@ export const CategoryCard = ({
         padding: 15,
         borderRadius: 10,
       }}
+      onPress={onPress}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View>
