@@ -1,9 +1,6 @@
-import { Empty } from "@/components/commons/Empty";
 import { QuoteCard } from "@/components/commons/QuoteCard";
 import { MainWrapper } from "@/components/commons/Wrapper";
-
 import { useQuoteBookmark } from "@/hooks/useBookmarkQuote";
-
 import { CustomFlatList } from "@/components/commons/CustomFlatList";
 
 const BookmarkQuotes = () => {
@@ -15,7 +12,7 @@ const BookmarkQuotes = () => {
         data={bookmarkQuotes}
         renderItem={({ item }) => <QuoteCard {...item} />}
         keyExtractor={(item) => item._id}
-        ListEmptyComponent={<Empty />}
+        emptyStateText="You've got nothing in your bookmark...yet"
       />
     </MainWrapper>
   );

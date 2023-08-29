@@ -27,9 +27,7 @@ const ShareAsImageView = ({ onFinish, quote }: ShareAsImageViewProps) => {
       const uri = await ref.current.capture();
       await Sharing.shareAsync(uri);
       onFinish();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   return (
     <View style={{ padding: 20, gap: 20 }}>
@@ -92,9 +90,7 @@ export const ShareModal = ({ visible, onClose, quote }: Props) => {
         message: `${quote.content} ${quote.author}`,
       });
       onClose();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleFinishImageShare = () => {
@@ -121,5 +117,3 @@ export const ShareModal = ({ visible, onClose, quote }: Props) => {
     </Modal>
   );
 };
-
-export default ShareModal;

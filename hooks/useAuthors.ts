@@ -28,13 +28,13 @@ export const useAuthor = () => {
   const {
     data,
     fetchNextPage,
-    isFetching: isLoadingQuotes,
+    isLoading: isLoadingAuthors,
   } = useInfiniteQuery({
     queryKey: path,
     queryFn: async ({ pageParam }) => {
       const page = pageParam?.page + 1 || 1;
       const { data } = await axiosInstance.get<AuthorResponse>(
-        `/authors/?page=${page}`
+        `/authors/?page=${page}&sortBy=quoteCount`
       );
       return data;
     },
@@ -49,7 +49,7 @@ export const useAuthor = () => {
 
   return {
     ...data,
-    isLoadingQuotes,
+    isLoadingAuthors,
     fetchNextPage,
   };
 };

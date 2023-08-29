@@ -9,7 +9,7 @@ import { useLocalSearchParams } from "expo-router";
 
 export default function AuthorScreen() {
   const { slug } = useLocalSearchParams();
-  const { pages, fetchNextPage } = useQuote(`author=${slug}&`);
+  const { pages, fetchNextPage, isLoadingQuotes } = useQuote(`author=${slug}`);
 
   const quotes = extractQuotesFromResponses(pages || []);
 
@@ -18,7 +18,7 @@ export default function AuthorScreen() {
   };
 
   return (
-    <MainWrapper>
+    <MainWrapper isLoading={isLoadingQuotes}>
       <CustomFlatList
         data={quotes}
         renderItem={({ item }) => <QuoteCard {...item} />}
@@ -27,6 +27,7 @@ export default function AuthorScreen() {
           <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
         )}
         onEndReached={handleOnEndReach}
+        emptyStateText="No Quotes for this author...yet"
       />
     </MainWrapper>
   );

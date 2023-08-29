@@ -27,14 +27,13 @@ export const useQuote = (queryParam?: string) => {
   const {
     data,
     fetchNextPage,
-    isFetching: isLoadingQuotes,
+    isLoading: isLoadingQuotes,
   } = useInfiniteQuery({
     queryKey: path,
     queryFn: async ({ pageParam }) => {
       const page = pageParam?.page + 1 || 1;
-      console.log(`/quotes?${queryParam && queryParam}page=${page}`);
       const { data } = await axiosInstance.get<QuoteResponse>(
-        `/quotes?${queryParam && queryParam}page=${page}`
+        `/quotes?page=${page}&${queryParam && queryParam}`
       );
       return data;
     },
