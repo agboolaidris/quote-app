@@ -4,18 +4,9 @@ import { COLORS, SIZES } from "@/constants";
 import { useRouter } from "expo-router";
 import { AnimatePressable } from "./AnimatePressable";
 import { AuthorImageCard } from "./AuthorImageCard";
+import { Author } from "@/hooks/useAuthors";
 
-type AuthorCardProps = {
-  _id: string;
-  name: string;
-  bio: string;
-  description: string;
-  link: string;
-  quoteCount: number;
-  slug: string;
-  dateAdded: string;
-  dateModified: string;
-};
+type AuthorCardProps = Author & {};
 
 export const AuthorCard = ({
   name,
@@ -26,7 +17,7 @@ export const AuthorCard = ({
   const router = useRouter();
 
   const onPress = () => {
-    //router.push(`/(tabs)/authors/${slug}`);
+    router.push(`/(tabs)/(home)/authors/${slug}`);
   };
 
   return (

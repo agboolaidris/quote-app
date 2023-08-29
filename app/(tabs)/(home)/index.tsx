@@ -11,14 +11,23 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import { authors, catagories } from "@/constants/data";
 import { CategoryCard } from "@/components/commons/CategoryCard";
 import { QuoteCard } from "@/components/commons/QuoteCard";
 import { COLORS } from "@/constants";
 import { CustomFlatList } from "@/components/commons/CustomFlatList";
-import { useQuote } from "@/hooks/useQuote";
+import { extractQuotesFromResponses, useQuote } from "@/hooks/useQuote";
+import { useCategory } from "@/hooks/useCategory";
+import { extractAuthorsFromResponses, useAuthor } from "@/hooks/useAuthors";
 
 const AuthorRoute = () => {
+  const { pages, fetchNextPage } = useAuthor();
+
+  const authors = extractAuthorsFromResponses(pages || []);
+
+  const handleOnEndReach = () => {
+    fetchNextPage();
+  };
+
   return (
     <MainWrapper>
       <CustomFlatList
@@ -28,33 +37,46 @@ const AuthorRoute = () => {
         ItemSeparatorComponent={() => (
           <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
         )}
+        onEndReached={handleOnEndReach}
       />
     </MainWrapper>
   );
 };
 
-const CategoryRoute = () => (
-  <MainWrapper>
-    <CustomFlatList
-      data={catagories}
-      renderItem={({ item }) => <CategoryCard {...item} />}
-      keyExtractor={(item) => item._id}
-      ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
-    />
-  </MainWrapper>
-);
+const CategoryRoute = () => {
+  const { data } = useCategory();
+
+  return (
+    <MainWrapper>
+      <CustomFlatList
+        data={data}
+        renderItem={({ item }) => <CategoryCard {...item} />}
+        keyExtractor={(item) => item._id}
+        ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
+      />
+    </MainWrapper>
+  );
+};
 
 const AllQuotesRoute = () => {
-  const { quotes, isLoadingQuotes } = useQuote();
+  const { pages, fetchNextPage } = useQuote();
+
+  const quotes = extractQuotesFromResponses(pages || []);
+
+  const handleOnEndReach = () => {
+    fetchNextPage();
+  };
+
   return (
     <MainWrapper>
       <CustomFlatList
         data={quotes}
         renderItem={({ item }) => <QuoteCard {...item} />}
-        keyExtractor={(item) => item._id}
+        keyExtractor={(_, index) => index.toString()}
         ItemSeparatorComponent={() => (
           <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
         )}
+        onEndReached={handleOnEndReach}
       />
     </MainWrapper>
   );

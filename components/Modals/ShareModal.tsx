@@ -89,7 +89,7 @@ export const ShareModal = ({ visible, onClose, quote }: Props) => {
   const handleShareText = async () => {
     try {
       await Share.share({
-        message: `${quote.author}`,
+        message: `${quote.content} ${quote.author}`,
       });
       onClose();
     } catch (error) {
