@@ -8,12 +8,16 @@ import {
   NativeSyntheticEvent,
   FlatListProps,
 } from "react-native";
+import { Empty } from "./Empty";
 
-type CustomFlatListProps<ItemT> = FlatListProps<ItemT>; // Include all FlatListProps as well
+type CustomFlatListProps<ItemT> = FlatListProps<ItemT> & {
+  emptyStateText?: string;
+}; // Include all FlatListProps as well
 
-export const CustomFlatList = <ItemT extends any>(
-  props: CustomFlatListProps<ItemT>
-) => {
+export const CustomFlatList = <ItemT extends any>({
+  emptyStateText,
+  ...rest
+}: CustomFlatListProps<ItemT>) => {
   const navigation = useNavigation();
   const { scrollViewRef, getHeaderOptions } = useScrollHideHeader();
 
@@ -29,7 +33,10 @@ export const CustomFlatList = <ItemT extends any>(
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ flexGrow: 1 }}
       style={{ height: "100%" }}
-      {...props}
+      initialNumToRender={7}
+      ListEmptyComponent={<Empty text={emptyStateText} />}
+      onEndReachedThreshold={0.1}
+      {...rest}
     />
   );
 };

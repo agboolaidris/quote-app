@@ -4,15 +4,12 @@ import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 
-import { Stack, SplashScreen } from "expo-router";
-
-// Keep the splash screen visible while we fetch resources
-//SplashScreen.preventAutoHideAsync();
+import { Stack } from "expo-router";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      //cacheTime: 1000, //* 60 * 60 * 24, // 24 hours
+      cacheTime: 1000 * 60 * 60 * 24, // 24 hours
     },
   },
 });

@@ -20,9 +20,6 @@ export default function SaveLayout() {
           />
         ),
       }}
-    >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="[slug]" />
-    </Stack>
+    ></Stack>
   );
 }

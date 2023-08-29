@@ -20,7 +20,7 @@ export const GlobalModals = () => {
             visible={activeModal?.modal === value}
             key={value}
             onClose={closeModal}
-            {...activeModal?.modalProps}
+            {...(activeModal?.modalProps as any)}
           />
         );
       })}

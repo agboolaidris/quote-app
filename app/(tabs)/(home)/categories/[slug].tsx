@@ -9,7 +9,7 @@ import { useLocalSearchParams } from "expo-router";
 
 export default function CategoryQuotesScreen() {
   const { slug } = useLocalSearchParams();
-  const { pages, fetchNextPage } = useQuote(`tags=${slug}&`);
+  const { pages, fetchNextPage, isLoadingQuotes } = useQuote(`tags=${slug}`);
 
   const quotes = extractQuotesFromResponses(pages || []);
 
@@ -18,7 +18,7 @@ export default function CategoryQuotesScreen() {
   };
 
   return (
-    <MainWrapper>
+    <MainWrapper isLoading={isLoadingQuotes}>
       <CustomFlatList
         data={quotes}
         renderItem={({ item }) => <QuoteCard {...item} />}
@@ -27,6 +27,7 @@ export default function CategoryQuotesScreen() {
           <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
         )}
         onEndReached={handleOnEndReach}
+        emptyStateText="No Quotes for this category...yet"
       />
     </MainWrapper>
   );

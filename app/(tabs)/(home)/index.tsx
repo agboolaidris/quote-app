@@ -20,8 +20,7 @@ import { useCategory } from "@/hooks/useCategory";
 import { extractAuthorsFromResponses, useAuthor } from "@/hooks/useAuthors";
 
 const AuthorRoute = () => {
-  const { pages, fetchNextPage } = useAuthor();
-
+  const { pages, fetchNextPage, isLoadingAuthors } = useAuthor();
   const authors = extractAuthorsFromResponses(pages || []);
 
   const handleOnEndReach = () => {
@@ -29,7 +28,7 @@ const AuthorRoute = () => {
   };
 
   return (
-    <MainWrapper>
+    <MainWrapper isLoading={isLoadingAuthors}>
       <CustomFlatList
         data={authors}
         renderItem={({ item }) => <AuthorCard {...item} />}
@@ -38,28 +37,30 @@ const AuthorRoute = () => {
           <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
         )}
         onEndReached={handleOnEndReach}
+        emptyStateText="An error occur"
       />
     </MainWrapper>
   );
 };
 
 const CategoryRoute = () => {
-  const { data } = useCategory();
+  const { data, isLoadingCategories } = useCategory();
 
   return (
-    <MainWrapper>
+    <MainWrapper isLoading={isLoadingCategories}>
       <CustomFlatList
         data={data}
         renderItem={({ item }) => <CategoryCard {...item} />}
         keyExtractor={(item) => item._id}
         ItemSeparatorComponent={() => <View style={{ height: 20 }}></View>}
+        emptyStateText="An error occur"
       />
     </MainWrapper>
   );
 };
 
 const AllQuotesRoute = () => {
-  const { pages, fetchNextPage } = useQuote();
+  const { pages, fetchNextPage, isLoadingQuotes } = useQuote();
 
   const quotes = extractQuotesFromResponses(pages || []);
 
@@ -68,7 +69,7 @@ const AllQuotesRoute = () => {
   };
 
   return (
-    <MainWrapper>
+    <MainWrapper isLoading={isLoadingQuotes}>
       <CustomFlatList
         data={quotes}
         renderItem={({ item }) => <QuoteCard {...item} />}
@@ -77,6 +78,7 @@ const AllQuotesRoute = () => {
           <View style={{ height: 1, backgroundColor: COLORS.gray[200] }}></View>
         )}
         onEndReached={handleOnEndReach}
+        emptyStateText="An error occur"
       />
     </MainWrapper>
   );
@@ -92,8 +94,8 @@ export default function TabViewExample() {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "author", title: "Authors" },
     { key: "categories", title: "Categories" },
+    { key: "author", title: "Authors" },
     { key: "quotes", title: "All Quotes" },
   ]);
 
